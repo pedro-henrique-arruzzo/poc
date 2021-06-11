@@ -6,25 +6,25 @@ import java.util.List;
 import com.ph.entidades.Movie;
 import com.ph.entidades.Rent;
 import com.ph.entidades.User;
-import com.ph.exceptions.FilmeSemEstoqueException;
-import com.ph.exceptions.LocadoraException;
+import com.ph.exceptions.MovieOutOfStockException;
+import com.ph.exceptions.RentException;
 import com.ph.utils.DataUtils;
 
 public class RentService {
 	
 	public Rent rentMovie(User user, List<Movie> movies)
-			throws FilmeSemEstoqueException, LocadoraException {
+			throws MovieOutOfStockException, RentException {
 		if(user == null) {
-			throw new LocadoraException("Empty user");
+			throw new RentException("Empty user");
 		}
 		
 		if(movies == null || movies.isEmpty()) {
-			throw new LocadoraException("Empty movie");
+			throw new RentException("Empty movie");
 		}
 
 		for (Movie movie : movies) {
 			if (movie.getStock() == 0) {
-				throw new FilmeSemEstoqueException();
+				throw new MovieOutOfStockException();
 			}
 		}
 		

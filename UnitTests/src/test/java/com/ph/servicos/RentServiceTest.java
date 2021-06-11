@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.ph.entidades.User;
-import com.ph.exceptions.LocadoraException;
+import com.ph.exceptions.RentException;
 import com.ph.utils.DataUtils;
 import org.junit.Assert;
 import org.junit.Before;
@@ -22,7 +22,7 @@ import org.junit.rules.ExpectedException;
 
 import com.ph.entidades.Movie;
 import com.ph.entidades.Rent;
-import com.ph.exceptions.FilmeSemEstoqueException;
+import com.ph.exceptions.MovieOutOfStockException;
 
 public class RentServiceTest {
 
@@ -54,39 +54,39 @@ public class RentServiceTest {
 		error.checkThat(DataUtils.isMesmaData(rent.getReturnDate(), DataUtils.obterDataComDiferencaDias(1)), is(true));
 	}
 	
-	@Test(expected = FilmeSemEstoqueException.class)
-	public void testLocacao_filmeSemEstoque() throws Exception{
-		//cenario
-		User user = new User("Usuario 1");
-		List<Movie> movies = Arrays.asList(new Movie("Filme 2", 0, 4.0));
+	@Test(expected = MovieOutOfStockException.class)
+	public void rentTest_movieOutOfStock() throws Exception{
+		//given
+		User user = new User("User 1");
+		List<Movie> movies = Arrays.asList(new Movie("Movie 2", 0, 4.0));
 		
-		//acao
+		//when
 		service.rentMovie(user, movies);
 	}
 	
 	@Test
-	public void testLocacao_usuarioVazio() throws FilmeSemEstoqueException{
-		//cenario
-		List<Movie> movies = Arrays.asList(new Movie("Filme 2", 1, 4.0));
+	public void rentTest_EmptyUser() throws MovieOutOfStockException {
+		//given
+		List<Movie> movies = Arrays.asList(new Movie("Movie 2", 1, 4.0));
 		
-		//acao
+		//when
 		try {
 			service.rentMovie(null, movies);
 			Assert.fail();
-		} catch (LocadoraException e) {
+		} catch (RentException e) {
 			assertThat(e.getMessage(), is("Empty user"));
 		}
 	}
 
 	@Test
-	public void testLocacao_FilmeVazio() throws FilmeSemEstoqueException, LocadoraException{
-		//cenario
-		User user = new User("Usuario 1");
+	public void rentTest_EmptyMovie() throws MovieOutOfStockException, RentException {
+		//given
+		User user = new User("User 1");
 		
-		exception.expect(LocadoraException.class);
+		exception.expect(RentException.class);
 		exception.expectMessage("Empty movie");
 		
-		//acao
+		//when
 		service.rentMovie(user, null);
 	}
 }
