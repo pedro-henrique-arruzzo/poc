@@ -1,4 +1,4 @@
-package com.ph.servicos;
+package com.ph.services;
 
 
 
@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import com.ph.entidades.User;
+import com.ph.entities.User;
 import com.ph.exceptions.RentException;
 import com.ph.utils.DataUtils;
 import org.junit.Assert;
@@ -20,8 +20,8 @@ import org.junit.Test;
 import org.junit.rules.ErrorCollector;
 import org.junit.rules.ExpectedException;
 
-import com.ph.entidades.Movie;
-import com.ph.entidades.Rent;
+import com.ph.entities.Movie;
+import com.ph.entities.Rent;
 import com.ph.exceptions.MovieOutOfStockException;
 
 public class RentServiceTest {

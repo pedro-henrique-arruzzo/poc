@@ -1,4 +1,4 @@
-package com.ph.entidades;
+package com.ph.entities;
 
 import java.util.Date;
 import java.util.List;

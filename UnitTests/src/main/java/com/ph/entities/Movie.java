@@ -1,4 +1,4 @@
-package com.ph.entidades;
+package com.ph.entities;
 
 public class Movie {
 
